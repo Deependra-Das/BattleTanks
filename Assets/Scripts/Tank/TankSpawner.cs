@@ -7,6 +7,13 @@ public class TankSpawner : MonoBehaviour
     [SerializeField]
     private TankView _tankView;
 
+    [SerializeField]
+    private float _movementSpeed;
+
+    [SerializeField]
+    private float _rotationSpeed;
+
+
     void Start()
     {
         CreateTank();
@@ -14,7 +21,7 @@ public class TankSpawner : MonoBehaviour
 
     private void CreateTank()
     {
-       TankModel tankModel = new TankModel();
+       TankModel tankModel = new TankModel(_movementSpeed,_rotationSpeed);
        TankController tankController = new TankController(tankModel, _tankView);
     }
 
