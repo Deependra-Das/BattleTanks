@@ -19,15 +19,36 @@ public class TankSpawner : MonoBehaviour
     [SerializeField]
     private List<Tank> _tankList;
 
-    void Start()
+    public void CreateTank(TankTypes tankType)
     {
-        CreateTank();
-    }
+        Tank tank = null;
+        switch (tankType)
+        {
+            case TankTypes.GreenTank:
+                tank = _tankList[0];
+                break;
+            case TankTypes.BlueTank:
+                tank = _tankList[1];
+                break;
+            case TankTypes.RedTank:
+                tank = _tankList[2];
+                break;
+        }
+        if (tank != null)
+        {
+            TankModel tankModel = new TankModel(
+                tank.tankType,
+                tank.movementSpeed,
+                tank.movementSpeed,
+                tank.tankMatColor
+            );
 
-    private void CreateTank()
-    {
-       TankModel tankModel = new TankModel(_tankList[2].tankType, _tankList[2].movementSpeed, _tankList[2].movementSpeed, _tankList[2].tankMatColor);
-       TankController tankController = new TankController(tankModel, _tankView);
+            TankController tankController = new TankController(tankModel, _tankView);
+        }
+        else
+        {
+            Debug.Log("Tank data not found");
+        }
     }
 
 
