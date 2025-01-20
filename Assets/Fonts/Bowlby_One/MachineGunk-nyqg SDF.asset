@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: MachineGunk-nyqg SDF Material
   m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: UNDERLAY_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -49,6 +49,7 @@ Material:
     - _BumpFace: 0
     - _BumpOutline: 0
     - _ColorMask: 15
+    - _CullMode: 0
     - _Diffuse: 0.5
     - _FaceDilate: 0
     - _FaceUVSpeedX: 0
@@ -69,7 +70,7 @@ Material:
     - _Reflectivity: 10
     - _ScaleRatioA: 0.8333333
     - _ScaleRatioB: 0.6770833
-    - _ScaleRatioC: 0.6770833
+    - _ScaleRatioC: 0.3761574
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
@@ -83,9 +84,9 @@ Material:
     - _TextureHeight: 512
     - _TextureWidth: 512
     - _UnderlayDilate: 0
-    - _UnderlayOffsetX: 0
-    - _UnderlayOffsetY: 0
-    - _UnderlaySoftness: 0
+    - _UnderlayOffsetX: 1
+    - _UnderlayOffsetY: -1
+    - _UnderlaySoftness: 0.8
     - _VertexOffsetX: 0
     - _VertexOffsetY: 0
     - _WeightBold: 0.75
@@ -115,13 +116,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hashCode: -620616433
   material: {fileID: -8805501029277246376}
-  materialHashCode: 168399140
+  materialHashCode: -1604550577
   m_Version: 1.1.0
   m_SourceFontFileGUID: cc8893fd42a03a14b8cd168d5d5ea3a6
   m_SourceFontFile_EditorRef: {fileID: 0}
   m_SourceFontFile: {fileID: 0}
   m_AtlasPopulationMode: 0
   m_FaceInfo:
+    m_FaceIndex: 0
     m_FamilyName: Machine Gunk
     m_StyleName: Regular
     m_PointSize: 74
@@ -1860,6 +1862,8 @@ MonoBehaviour:
   m_AtlasTextures:
   - {fileID: 882912170422577787}
   m_AtlasTextureIndex: 0
+  m_IsMultiAtlasTexturesEnabled: 0
+  m_ClearDynamicDataOnBuild: 0
   m_UsedGlyphRects:
   - m_X: 0
     m_Y: 0
@@ -2525,6 +2529,7 @@ Texture2D:
   m_MipCount: 1
   m_IsReadable: 1
   m_IgnoreMasterTextureLimit: 0
+  m_IsPreProcessed: 0
   m_StreamingMipmaps: 0
   m_StreamingMipmapsPriority: 0
   m_AlphaIsTransparency: 0
