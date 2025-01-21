@@ -53,7 +53,6 @@ public class TankController
     {
         return _tankModel.GetInitialHealth();
     }
-
     public void TakeDamage(float amount)
     {
         _tankModel.TakeDamage(amount);
