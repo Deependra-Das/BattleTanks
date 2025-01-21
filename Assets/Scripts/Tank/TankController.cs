@@ -20,6 +20,8 @@ public class TankController
         _tankView.SetTankController(this);
 
         _tankView.ChangeColor(_tankModel.GetTankMaterialColor());
+
+        reset();
     }
 
     public void Move(float movement, float movementSpeed)
@@ -41,5 +43,38 @@ public class TankController
     public float GetRotationSpeed()
     {
         return _tankModel.GetRotationSpeed();
+    }
+
+    public float GetCurrentHealth()
+    {
+       return _tankModel.GetCurrentHealth();
+    }
+    public float GetInitialHealth()
+    {
+        return _tankModel.GetInitialHealth();
+    }
+
+    public void TakeDamage(float amount)
+    {
+        _tankModel.TakeDamage(amount);
+        SetHealthUI();
+        if (GetCurrentHealth() <= 0f && !_tankModel.IsTankDead())
+        {
+            OnDeath();
+        }
+    }
+    public void SetHealthUI()
+    {
+        _tankView.SetHealthUI();
+    }
+
+    public void OnDeath()
+    {
+        _tankModel.SetTankDead();
+        _tankView.TankExplosion();
+    }
+    public void reset()
+    {
+        _tankModel.reset();
     }
 }

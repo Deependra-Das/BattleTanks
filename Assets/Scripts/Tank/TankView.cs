@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TankView : MonoBehaviour
 {
@@ -15,11 +16,28 @@ public class TankView : MonoBehaviour
     [SerializeField]
     private MeshRenderer[] _tankMeshChildren;
 
+    [SerializeField]
+    private Slider _healthSlider;
+
+    [SerializeField]
+    private Image _fillImage;
+
+    [SerializeField]
+    private Color _fullHealthColor = Color.green;
+
+    [SerializeField]
+    private Color _zeroHealthColor = Color.red;
+
+    [SerializeField]
+    private GameObject _explosionPrefab;
+
+    private ParticleSystem _explosionParticles;
+
     private void Start()
     {
         GameObject cam = GameObject.Find("Main Camera");
         cam.transform.SetParent(transform);
-        cam.transform.position = new Vector3(0f, 3f, -4f);
+        cam.transform.position = new Vector3(0f, 5f, -7f);
     }
     public TankView() {}
 
@@ -59,6 +77,27 @@ public class TankView : MonoBehaviour
         {
             _tankMeshChildren[i].material = matColor;
         }
+    }
+    private void Awake()
+    {
+        _explosionParticles = Instantiate(_explosionPrefab).GetComponent<ParticleSystem>();
+        _explosionParticles.gameObject.SetActive(false);
+    }
+
+    public void SetHealthUI()
+    {
+        _healthSlider.value = _tankController.GetCurrentHealth();
+
+        _fillImage.color = Color.Lerp(_zeroHealthColor, _fullHealthColor, _tankController.GetCurrentHealth() / _tankController.GetInitialHealth());
+    }
+
+    public void TankExplosion()
+    {
+        _explosionParticles.transform.position = transform.position;
+        _explosionParticles.gameObject.SetActive(true);
+
+        _explosionParticles.Play();
+        gameObject.SetActive(false);
     }
 
 }
