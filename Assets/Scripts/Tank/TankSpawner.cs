@@ -14,6 +14,7 @@ public class TankSpawner : MonoBehaviour
         public float movementSpeed;
         public float rotationSpeed;
         public Material tankMatColor;
+        public float initialHealth;
     }
 
     [SerializeField]
@@ -40,7 +41,8 @@ public class TankSpawner : MonoBehaviour
                 tank.tankType,
                 tank.movementSpeed,
                 tank.movementSpeed,
-                tank.tankMatColor
+                tank.tankMatColor,
+                tank.initialHealth
             );
 
             TankController tankController = new TankController(tankModel, _tankView);
