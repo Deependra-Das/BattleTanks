@@ -21,10 +21,10 @@ public class ShellSpawner : MonoBehaviour
     [SerializeField]
     private List<Shell> _shellList;
 
-    private void Start()
-    {
-        SpawnShell(ShellTypes.Normal);
-    }
+    //private void Start()
+    //{
+    //    SpawnShell(ShellTypes.Normal);
+    //}
 
     public void SpawnShell(ShellTypes shellType)
     {

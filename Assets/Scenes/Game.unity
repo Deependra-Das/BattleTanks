@@ -230,6 +230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tankView: {fileID: 7578996823949658733, guid: 013f7b4fe9fa804419c52f36e40370c4,
     type: 3}
+  _shellSpawner: {fileID: 329921824}
   _tankList:
   - tankType: 0
     movementSpeed: 30
