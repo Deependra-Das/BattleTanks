@@ -52,6 +52,7 @@ public class TankModel
     {
         _currentHealth = _initialHealth;
         _currentLaunchForce = _minLaunchForce;
+        _chargeSpeed = (_maxLaunchForce - _minLaunchForce) / _maxChargeTime;
         _dead = false;
         _tankController.SetHealthUI();
     }
