@@ -21,7 +21,6 @@ public class ShellView : MonoBehaviour
     public void SetShellController(ShellController shellController)
     {
         _shellController = shellController;
-
     }
     public Rigidbody GetRigidBody()
     {

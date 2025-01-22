@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static ShellSpawner;
 
 public class TankView : MonoBehaviour
 {
     private TankController _tankController;
-    
+
+    public int playerNumber = 1;
+
     private float _movement;
     private float _rotation;
 
@@ -18,6 +21,9 @@ public class TankView : MonoBehaviour
 
     [SerializeField]
     private Slider _healthSlider;
+
+    [SerializeField]
+    private Slider _aimSlider;
 
     [SerializeField]
     private Image _fillImage;
@@ -33,11 +39,18 @@ public class TankView : MonoBehaviour
 
     private ParticleSystem _explosionParticles;
 
+    private string _fireButton;
+
+    [SerializeField]
+    private ShellSpawner _shellSpawner;
+
     private void Start()
     {
         GameObject cam = GameObject.Find("Main Camera");
         cam.transform.SetParent(transform);
         cam.transform.position = new Vector3(0f, 5f, -7f);
+        
+        _fireButton = "Fire" + playerNumber;
     }
     public TankView() {}
 
@@ -53,6 +66,8 @@ public class TankView : MonoBehaviour
         {
             _tankController.Rotate(_rotation, _tankController.GetRotationSpeed());
         }
+
+        TankShooting();
     }
 
     private void TankMovement()
@@ -103,5 +118,56 @@ public class TankView : MonoBehaviour
     public void TakeDamage(float damage)
     {
         _tankController.TakeDamage(damage);
+    }
+    private void TankShooting()
+    {
+        _aimSlider.value = _tankController.GetMinLaunchForce();
+
+        float currentLaunchForce = _tankController.GetCurrentLaunchForce();
+        float maxLaunchForce = _tankController.GetMaxLaunchForce();
+        float minLaunchForce = _tankController.GetMinLaunchForce();
+        float chargeSpeed = _tankController.GetChargeSpeed();
+
+        if (currentLaunchForce >= maxLaunchForce && !_tankController.HasFired())
+        {
+            currentLaunchForce = maxLaunchForce;
+            _tankController.SetCurrentLaunchForce(currentLaunchForce);
+            FireShell();
+        }
+
+        else if (Input.GetButtonDown(_fireButton))
+        {
+            _tankController.SetFired(false);
+            currentLaunchForce = minLaunchForce;
+        }
+    
+        else if (Input.GetButton(_fireButton) && !_tankController.HasFired())
+        {
+            currentLaunchForce += chargeSpeed * Time.deltaTime;
+            _tankController.SetCurrentLaunchForce(currentLaunchForce);
+            _aimSlider.value = currentLaunchForce;
+        }
+    
+        else if (Input.GetButtonUp(_fireButton) && !_tankController.HasFired())
+        {
+
+            FireShell();
+        }
+
+    }
+    private void FireShell()
+    {
+        _tankController.SetFired(true);
+       
+        Vector3 velocity = _tankController.GetCurrentLaunchForce() * _shellSpawner.transform.forward;
+
+        _shellSpawner.SpawnShell(ShellTypes.Normal, velocity, transform);
+
+        _tankController.SetCurrentLaunchForce(_tankController.GetMinLaunchForce());
+    }
+
+    public void ResetUI()
+    {
+        _aimSlider.value = _tankController.GetMinLaunchForce();
     }
 }

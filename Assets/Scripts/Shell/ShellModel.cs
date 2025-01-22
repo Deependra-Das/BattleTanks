@@ -13,8 +13,17 @@ public class ShellModel
     private float _explosionForce;
     private float _maxLifeTime;
     private float _explosionRadius;
+    private Vector3 _velocity;
+    private Transform _originTransform;
 
-    public ShellModel(ShellTypes shellType, Material shellMatColor, float maxDamage, float explosionForce, float maxLifeTime, float explosionRadius)
+    public ShellModel(ShellTypes shellType,
+        Material shellMatColor, float maxDamage,
+        float explosionForce,
+        float maxLifeTime,
+        float explosionRadius,
+        Vector3 velocity,
+        Transform originTransform
+        )
     {
         _shellType = shellType;
         _shellMatColor = shellMatColor;
@@ -22,7 +31,10 @@ public class ShellModel
         _explosionForce = explosionForce;
         _maxLifeTime = maxLifeTime;
         _explosionRadius = explosionRadius;
+        _velocity = velocity;
+        _originTransform = originTransform;
     }
+
     public void SetShellController(ShellController shellController)
     {
         _shellController = shellController;
@@ -47,5 +59,13 @@ public class ShellModel
     public float GetMaxLifeTime()
     {
         return _maxLifeTime;
+    }
+    public Transform GetOrigintransform()
+    {
+        return _originTransform;
+    }
+    public Vector3 GetVelocity()
+    {
+        return _velocity;
     }
 }

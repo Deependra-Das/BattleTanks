@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using UnityEngine;
+using static ShellSpawner;
 
 public class TankController
 {
@@ -21,7 +22,7 @@ public class TankController
 
         _tankView.ChangeColor(_tankModel.GetTankMaterialColor());
 
-        reset();
+        ResetData();
     }
 
     public void Move(float movement, float movementSpeed)
@@ -53,6 +54,31 @@ public class TankController
     {
         return _tankModel.GetInitialHealth();
     }
+    public float GetMinLaunchForce()
+    {
+        return _tankModel.GetMinLaunchForce();
+    }
+    public float GetMaxLaunchForce()
+    {
+        return _tankModel.GetMaxLaunchForce();
+    }
+    public float GetMaxChargeTime()
+    {
+        return _tankModel.GetMaxChargeTime();
+    }
+    public float GetCurrentLaunchForce()
+    {
+        return _tankModel.GetCurrentLaunchForce();
+    }
+    public float GetChargeSpeed()
+    {
+        return _tankModel.GetChargeSpeed();
+    }
+    public bool HasFired()
+    {
+        return _tankModel.HasFired();
+    }
+
     public void TakeDamage(float amount)
     {
         _tankModel.TakeDamage(amount);
@@ -66,14 +92,23 @@ public class TankController
     {
         _tankView.SetHealthUI();
     }
-
+    public void SetCurrentLaunchForce(float forceValue)
+    {
+        _tankModel.SetCurrentLaunchForce(forceValue);
+    }
+    public void SetFired(bool fireValue)
+    {
+        _tankModel.SetFired(fireValue);
+    }
     public void OnDeath()
     {
         _tankModel.SetTankDead();
         _tankView.TankExplosion();
     }
-    public void reset()
+    public void ResetData()
     {
-        _tankModel.reset();
+        _tankModel.ResetData();
+        _tankView.ResetUI();
     }
+
 }

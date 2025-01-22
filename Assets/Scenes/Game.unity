@@ -121,140 +121,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &909734104
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1002464119394288373, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1002464119394288373, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1475651995138353733, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_Name
-      value: Tank
-      objectReference: {fileID: 0}
-    - target: {fileID: 1475651995138717605, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1475651995138717605, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1475651995138717605, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1475651995138717605, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1475651995138717605, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1475651995138717605, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1475651995138717605, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1475651995138717605, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1475651995138717605, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1475651995138717605, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1475651995138717605, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6712626384100785754, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6712626384100785754, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6712626384100785754, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735167284892919024, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_Value
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 8454624201990281852, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8454624201990281852, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8454624201990281852, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8454624201990281852, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8454624201990281852, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8557665560811819636, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8557665560811819636, guid: 013f7b4fe9fa804419c52f36e40370c4,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 013f7b4fe9fa804419c52f36e40370c4, type: 3}
 --- !u!1 &1028216325
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,23 +166,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tankView: {fileID: 7578996823949658733, guid: 013f7b4fe9fa804419c52f36e40370c4,
     type: 3}
-  _shellSpawner: {fileID: 0}
   _tankList:
   - tankType: 0
     movementSpeed: 30
     rotationSpeed: 75
     tankMatColor: {fileID: 2100000, guid: c39933e60e73205419d1f79a2af1fdac, type: 2}
     initialHealth: 100
+    minLaunchForce: 0
+    maxLaunchForce: 0
+    maxChargeTime: 0
   - tankType: 1
     movementSpeed: 10
     rotationSpeed: 50
     tankMatColor: {fileID: 2100000, guid: ff21ff0ea9b18924bb1fdfbb0e58f5cb, type: 2}
     initialHealth: 100
+    minLaunchForce: 0
+    maxLaunchForce: 0
+    maxChargeTime: 0
   - tankType: 2
     movementSpeed: 60
     rotationSpeed: 120
     tankMatColor: {fileID: 2100000, guid: 463052f3f7389124f9e7b34b0b931d0d, type: 2}
     initialHealth: 100
+    minLaunchForce: 0
+    maxLaunchForce: 0
+    maxChargeTime: 0
 --- !u!1 &1179543937
 GameObject:
   m_ObjectHideFlags: 0
