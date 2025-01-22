@@ -121,6 +121,70 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &329921823
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 329921825}
+  - component: {fileID: 329921824}
+  m_Layer: 0
+  m_Name: ShellSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &329921824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 329921823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e85786011fed13e459da045a49ff4faf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shellView: {fileID: 6933573963673220823, guid: d054876694e00f143a731eb90d3a4f34,
+    type: 3}
+  _shellList:
+  - shellType: 0
+    shellMatColor: {fileID: 2100000, guid: db9ceca9e86a2724aaa5c3df2991dba7, type: 2}
+    maxDamage: 0
+    explosionForce: 0
+    maxLifeTime: 0
+    explosionRadius: 0
+  - shellType: 1
+    shellMatColor: {fileID: 0}
+    maxDamage: 0
+    explosionForce: 0
+    maxLifeTime: 0
+    explosionRadius: 0
+  - shellType: 2
+    shellMatColor: {fileID: 0}
+    maxDamage: 0
+    explosionForce: 0
+    maxLifeTime: 0
+    explosionRadius: 0
+--- !u!4 &329921825
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 329921823}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1028216325
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,6 +230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tankView: {fileID: 7578996823949658733, guid: 013f7b4fe9fa804419c52f36e40370c4,
     type: 3}
+  _shellSpawner: {fileID: 329921824}
   _tankList:
   - tankType: 0
     movementSpeed: 30

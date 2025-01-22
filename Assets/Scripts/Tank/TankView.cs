@@ -100,4 +100,8 @@ public class TankView : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public void TakeDamage(float damage)
+    {
+        _tankController.TakeDamage(damage);
+    }
 }

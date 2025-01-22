@@ -7,6 +7,9 @@ public class TankSpawner : MonoBehaviour
     [SerializeField]
     private TankView _tankView;
 
+    [SerializeField]
+    private ShellSpawner _shellSpawner;
+
     [System.Serializable]
     public class Tank
     {
@@ -51,6 +54,8 @@ public class TankSpawner : MonoBehaviour
         {
             Debug.Log("Tank data not found");
         }
+
+        _shellSpawner.SpawnShell(ShellTypes.Normal);
     }
 
 
