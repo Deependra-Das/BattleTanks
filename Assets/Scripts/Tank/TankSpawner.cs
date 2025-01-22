@@ -7,9 +7,6 @@ public class TankSpawner : MonoBehaviour
     [SerializeField]
     private TankView _tankView;
 
-    [SerializeField]
-    private ShellSpawner _shellSpawner;
-
     [System.Serializable]
     public class Tank
     {
@@ -18,6 +15,9 @@ public class TankSpawner : MonoBehaviour
         public float rotationSpeed;
         public Material tankMatColor;
         public float initialHealth;
+        public float minLaunchForce;
+        public float maxLaunchForce;
+        public float maxChargeTime;
     }
 
     [SerializeField]
@@ -45,7 +45,10 @@ public class TankSpawner : MonoBehaviour
                 tank.movementSpeed,
                 tank.movementSpeed,
                 tank.tankMatColor,
-                tank.initialHealth
+                tank.initialHealth,
+                tank.minLaunchForce,
+                tank.maxLaunchForce,
+                tank.maxChargeTime
             );
 
             TankController tankController = new TankController(tankModel, _tankView);
@@ -55,7 +58,6 @@ public class TankSpawner : MonoBehaviour
             Debug.Log("Tank data not found");
         }
 
-        _shellSpawner.SpawnShell(ShellTypes.Normal);
     }
 
 

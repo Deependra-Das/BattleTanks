@@ -13,11 +13,14 @@ public class ShellController
         _shellModel = shellModel;
         _shellModel.SetShellController(this);
 
-        _shellView = GameObject.Instantiate<ShellView>(shellView);
-        _shellRB = _shellView.GetRigidBody();
+        Transform originTransform = GetOrigintransform();
+        _shellView = GameObject.Instantiate<ShellView>(shellView, originTransform.position, originTransform.rotation);
         _shellView.SetShellController(this);
 
         _shellView.ChangeColor(_shellModel.GetShellMaterialColor());
+
+        _shellRB = _shellView.GetRigidBody();
+        _shellRB.velocity = GetVelocity();
     }
 
     public float GetExplosionRadius()
@@ -35,5 +38,13 @@ public class ShellController
     public float GetMaxLifeTime()
     {
         return _shellModel.GetMaxLifeTime();
+    }
+    public Transform GetOrigintransform()
+    {
+        return _shellModel.GetOrigintransform();
+    }
+    public Vector3 GetVelocity()
+    {
+        return _shellModel.GetVelocity();
     }
 }
