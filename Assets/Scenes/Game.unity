@@ -172,25 +172,25 @@ MonoBehaviour:
     rotationSpeed: 75
     tankMatColor: {fileID: 2100000, guid: c39933e60e73205419d1f79a2af1fdac, type: 2}
     initialHealth: 100
-    minLaunchForce: 0
-    maxLaunchForce: 0
-    maxChargeTime: 0
+    minLaunchForce: 15
+    maxLaunchForce: 30
+    maxChargeTime: 0.75
   - tankType: 1
     movementSpeed: 10
     rotationSpeed: 50
     tankMatColor: {fileID: 2100000, guid: ff21ff0ea9b18924bb1fdfbb0e58f5cb, type: 2}
     initialHealth: 100
-    minLaunchForce: 0
-    maxLaunchForce: 0
-    maxChargeTime: 0
+    minLaunchForce: 15
+    maxLaunchForce: 30
+    maxChargeTime: 0.75
   - tankType: 2
     movementSpeed: 60
     rotationSpeed: 120
     tankMatColor: {fileID: 2100000, guid: 463052f3f7389124f9e7b34b0b931d0d, type: 2}
     initialHealth: 100
-    minLaunchForce: 0
-    maxLaunchForce: 0
-    maxChargeTime: 0
+    minLaunchForce: 15
+    maxLaunchForce: 30
+    maxChargeTime: 0.75
 --- !u!1 &1179543937
 GameObject:
   m_ObjectHideFlags: 0

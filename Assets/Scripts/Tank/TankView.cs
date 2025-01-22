@@ -121,7 +121,7 @@ public class TankView : MonoBehaviour
     }
     private void TankShooting()
     {
-        _aimSlider.value = _tankController.GetMinLaunchForce();
+        ResetUI();
 
         float currentLaunchForce = _tankController.GetCurrentLaunchForce();
         float maxLaunchForce = _tankController.GetMaxLaunchForce();
@@ -161,7 +161,7 @@ public class TankView : MonoBehaviour
        
         Vector3 velocity = _tankController.GetCurrentLaunchForce() * _shellSpawner.transform.forward;
 
-        _shellSpawner.SpawnShell(ShellTypes.Normal, velocity, transform);
+        _shellSpawner.SpawnShell(ShellTypes.Normal, velocity, _shellSpawner.transform);
 
         _tankController.SetCurrentLaunchForce(_tankController.GetMinLaunchForce());
     }

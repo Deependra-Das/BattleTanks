@@ -295,6 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5052204c51fe85d4a97abcbf6c9aa8d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerNumber: 1
   _tankRB: {fileID: 5767603972218238475}
   _tankMeshChildren:
   - {fileID: 1475651995140617525}
@@ -929,7 +930,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7471209903455478196}
   m_LocalRotation: {x: 0.08715596, y: -0, z: -0, w: -0.9961947}
-  m_LocalPosition: {x: 0, y: 1.7, z: 1.35}
+  m_LocalPosition: {x: 0, y: 1.95, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1475651995138717605}

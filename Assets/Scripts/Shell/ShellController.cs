@@ -15,11 +15,12 @@ public class ShellController
 
         Transform originTransform = GetOrigintransform();
         _shellView = GameObject.Instantiate<ShellView>(shellView, originTransform.position, originTransform.rotation);
-        _shellRB = _shellView.GetRigidBody();
-        _shellRB.velocity = GetVelocity();
         _shellView.SetShellController(this);
 
         _shellView.ChangeColor(_shellModel.GetShellMaterialColor());
+
+        _shellRB = _shellView.GetRigidBody();
+        _shellRB.velocity = GetVelocity();
     }
 
     public float GetExplosionRadius()
