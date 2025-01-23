@@ -66,7 +66,7 @@ public class ShellView : MonoBehaviour
     {
         _explosionParticles.transform.parent = null;
         _explosionParticles.Play();
-        Destroy(_explosionParticles.gameObject, _explosionParticles.duration);
+        Destroy(_explosionParticles.gameObject, _explosionParticles.main.duration);
     }
 
     private float CalculateDamage(Vector3 targetPosition)
