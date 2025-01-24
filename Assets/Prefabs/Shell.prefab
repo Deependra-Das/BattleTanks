@@ -29,13 +29,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6933573963673120873}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1.487, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6933573964494945678}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6933573963672054889
 MeshFilter:
@@ -56,10 +57,14 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -84,6 +89,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!54 &6933573963673220810
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -91,10 +97,21 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6933573963673120873}
-  serializedVersion: 2
+  serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -108,8 +125,17 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6933573963673120873}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
+  serializedVersion: 2
   m_Radius: 0.15
   m_Height: 0.55
   m_Direction: 2
@@ -122,9 +148,8 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6933573963673120873}
   m_Enabled: 1
-  serializedVersion: 10
+  serializedVersion: 11
   m_Type: 2
-  m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
@@ -173,6 +198,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!114 &6933573963673220823
@@ -190,7 +216,7 @@ MonoBehaviour:
   _shellMesh: {fileID: 6933573963670924969}
   _tankMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
   _shellRB: {fileID: 6933573963673220810}
   _explosionParticles: {fileID: 6933573964479819218}
 --- !u!1001 &6933573964494622916
@@ -198,6 +224,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 6933573963673349193}
     m_Modifications:
     - target: {fileID: 195792, guid: 21df2a230e1067645a715c3061c5b7f4, type: 3}
@@ -249,16 +276,19 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21df2a230e1067645a715c3061c5b7f4, type: 3}
---- !u!4 &6933573964494945678 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 486730, guid: 21df2a230e1067645a715c3061c5b7f4,
-    type: 3}
-  m_PrefabInstance: {fileID: 6933573964494622916}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &6933573964479819218 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 19807510, guid: 21df2a230e1067645a715c3061c5b7f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 6933573964494622916}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6933573964494945678 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 486730, guid: 21df2a230e1067645a715c3061c5b7f4,
     type: 3}
   m_PrefabInstance: {fileID: 6933573964494622916}
   m_PrefabAsset: {fileID: 0}

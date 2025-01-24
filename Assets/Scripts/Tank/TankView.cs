@@ -37,6 +37,7 @@ public class TankView : MonoBehaviour
     [SerializeField]
     private GameObject _explosionPrefab;
 
+    [SerializeField]
     private ParticleSystem _explosionParticles;
 
     private string _fireButton;
