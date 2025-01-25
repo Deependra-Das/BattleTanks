@@ -26,5 +26,8 @@ public class TargetView : MonoBehaviour
         gameObject.SetActive(false);
         _targetController.DisableMarker();
     }
-
+    public void SetAreaParent(Transform area)
+    {
+        gameObject.transform.SetParent(area.gameObject.transform);
+    }
 }

@@ -18,6 +18,9 @@ public class TargetSpawner : MonoBehaviour
     [SerializeField]
     private Canvas _canvasObj;
 
+    [SerializeField]
+    private Transform[] _targetAreaList;
+
     [System.Serializable]
     public class TargetMarkers
     {
@@ -38,7 +41,7 @@ public class TargetSpawner : MonoBehaviour
         {
             TargetMarkers targetMarker = _targetMarkerList[i];
             TargetView _targetView = null;
-           
+            Transform _areaTransform = null;
             if (targetMarker != null)
             {
                 TargetModel targetModel = new TargetModel(
@@ -54,13 +57,15 @@ public class TargetSpawner : MonoBehaviour
                 {
                     case TargetTypes.OilStorage:
                         _targetView = _targetViewList[0];
+                        _areaTransform = _targetAreaList[0];
                         break;
                     case TargetTypes.MilitaryBuilding:
                         _targetView = _targetViewList[1];
+                        _areaTransform = _targetAreaList[1];
                         break;
                 }
           
-                TargetController targetController = new TargetController(targetModel, _targetView,_targetMarkerView, _canvasObj);
+                TargetController targetController = new TargetController(targetModel, _targetView,_targetMarkerView, _areaTransform, _canvasObj);
             }
             else
             {

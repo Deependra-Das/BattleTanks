@@ -240,6 +240,9 @@ MonoBehaviour:
     type: 3}
   _markerUIObj: {fileID: 1179543942}
   _canvasObj: {fileID: 916260408}
+  _targetAreaList:
+  - {fileID: 4640371552955828}
+  - {fileID: 4400794251271428}
   _targetMarkerList:
   - targetType: 0
     targetObject: {fileID: 3657380187960263113, guid: 79e1f9ed1042f68448d2834b5f7ad12c,
