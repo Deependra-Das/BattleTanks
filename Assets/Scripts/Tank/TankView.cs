@@ -47,10 +47,6 @@ public class TankView : MonoBehaviour
 
     private void Start()
     {
-        GameObject cam = GameObject.Find("Main Camera");
-        cam.transform.SetParent(transform);
-        cam.transform.position = new Vector3(0f, 5f, -7f);
-        
         _fireButton = "Fire" + playerNumber;
     }
     public TankView() {}
@@ -170,5 +166,13 @@ public class TankView : MonoBehaviour
     public void ResetUI()
     {
         _aimSlider.value = _tankController.GetMinLaunchForce();
+    }
+    public void SetCameraPosition(Transform spawnTransform)
+    {
+        GameObject cam = GameObject.Find("Main Camera");
+        cam.transform.SetParent(transform);
+
+        cam.transform.position = spawnTransform.position;
+        cam.transform.localPosition = new Vector3(0f,3f,-5f);
     }
 }

@@ -11,15 +11,15 @@ public class TankController
     private Rigidbody _tankRB;
 
 
-    public TankController(TankModel tankModel, TankView tankView)
+    public TankController(TankModel tankModel, TankView tankView, Transform spawnTransform)
     {
         _tankModel = tankModel;
         _tankModel.SetTankController(this);
 
-        _tankView = GameObject.Instantiate<TankView>(tankView);
+        _tankView = GameObject.Instantiate<TankView>(tankView, spawnTransform.position, spawnTransform.rotation);
         _tankRB = _tankView.GetRigidBody();
         _tankView.SetTankController(this);
-
+        _tankView.SetCameraPosition(spawnTransform);
         _tankView.ChangeColor(_tankModel.GetTankMaterialColor());
 
         ResetData();

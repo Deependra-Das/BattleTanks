@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8782222368168045201}
   - component: {fileID: 6252212414350588334}
   - component: {fileID: 5583973313989171448}
-  - component: {fileID: 75331709298223306}
+  - component: {fileID: 328659928176543793}
   m_Layer: 5
   m_Name: TargetMarker
   m_TagString: Untagged
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &75331709298223306
+--- !u!114 &328659928176543793
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,8 +85,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8431372429718896067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60b3ed953fdfb494ea8b54057208826c, type: 3}
+  m_Script: {fileID: 11500000, guid: b8174382fec2bd64b852bae581632449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSpawner: {fileID: 0}
+  _canvas: {fileID: 0}
   _targetImage: {fileID: 5583973313989171448}

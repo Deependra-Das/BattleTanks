@@ -7,31 +7,48 @@ public class TargetController
 
     private TargetModel _targetModel;
     private TargetView _targetView;
+    private TargetMarkerView _targetMarkerView;
 
-
-    public TargetController(TargetModel targetModel, TargetView targetView, GameObject spawner)
+    public TargetController(TargetModel targetModel, TargetView targetView, TargetMarkerView targetMarkerView, Canvas canvas)
     {
         _targetModel = targetModel;
         _targetModel.SetTargetController(this);
 
-        _targetView = GameObject.Instantiate<TargetView>(targetView);
+        _targetView = GameObject.Instantiate<TargetView>(targetView, GetTargetPosition(), Quaternion.Euler(GetTargetRotation()));
         _targetView.SetTargetController(this);
 
-        _targetView.gameObject.transform.SetParent(spawner.transform);
-        _targetView.gameObject.transform.transform.localPosition = Vector3.zero;
-        _targetView.gameObject.transform.localRotation = Quaternion.identity;
-        _targetView.gameObject.transform.localScale = Vector3.one;
+        _targetMarkerView = GameObject.Instantiate<TargetMarkerView>(targetMarkerView);
+        _targetMarkerView.SetTargetController(this);
 
-        _targetView.SetImage(_targetModel.GetTargetSprite());
+        _targetMarkerView.SetImage(_targetModel.GetTargetSprite());
+
+        _targetMarkerView.SetCanvasAsParent(canvas);
     }
 
-    public Transform GetTarget()
+    public GameObject GetTargetObject()
     {
-        return _targetModel.GetTarget();
+        return _targetModel.GetTargetObject();
     }
-    public Vector3 GetOffset()
+    public Vector3 GetTargetPosition()
     {
-        return _targetModel.GetOffset();
+        return _targetModel.GetTargetPosition();
+    }
+    public Vector3 GetTargetRotation()
+    {
+        return _targetModel.GetTargetRotation();
+    }
+
+    public Vector3 GetTargetOffset()
+    {
+        return _targetModel.GetTargetOffset();
+    }
+    public void DisableMarker()
+    {
+        _targetMarkerView.DisableMarker();
+    }
+    public void EnableMarker()
+    {
+        _targetMarkerView.EnableMarker();
     }
 
 }

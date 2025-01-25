@@ -56,17 +56,15 @@ public class ShellView : MonoBehaviour
                 tankView.TakeDamage(damage);
             }
 
-            TargetExplosion targetExplosion = colliders[i].GetComponent<TargetExplosion>();
-            if (targetExplosion != null)
+            TargetView targetView = colliders[i].GetComponent<TargetView>();
+            if (targetView != null)
             {
-                Debug.Log("found Target");
                 Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody>();
                 if (!targetRigidbody)
                     continue;
                 targetRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+                targetView.PlayTargetExplosion();
 
-                targetExplosion.PlayTargetExplosion();
-                Debug.Log("HitExplosion");
             }
 
 

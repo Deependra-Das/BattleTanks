@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,29 +10,21 @@ public class TargetView : MonoBehaviour
     private TargetController _targetController;
 
     [SerializeField]
-    private Image _targetImage;
+    private ParticleSystem _explosionParticles;
 
     public void SetTargetController(TargetController targetController)
     {
         _targetController = targetController;
     }
 
-    public void SetImage(Sprite targetSprite)
+    public void PlayTargetExplosion()
     {
-        _targetImage.sprite = targetSprite;
-    }
+        _explosionParticles.transform.position = transform.position;
+        _explosionParticles.gameObject.SetActive(true);
 
-    public Image GetImage()
-    {
-        return _targetImage;
-    }
-    public Transform GetTarget()
-    {
-        return _targetController.GetTarget();
-    }
-    public Vector3 GetOffset()
-    {
-        return _targetController.GetOffset();
+        _explosionParticles.Play();
+        gameObject.SetActive(false);
+        _targetController.DisableMarker();
     }
 
 }

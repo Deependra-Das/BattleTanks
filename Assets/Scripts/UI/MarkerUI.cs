@@ -6,33 +6,33 @@ using static TargetSpawner;
 
 public class MarkerUI : MonoBehaviour
 {
+    [SerializeField]
+    private Canvas _canvas;
 
-    public GameObject spawner;
-
-    List<TargetView> targetViewList;
+    List<TargetMarkerView> targetViewList;
 
     private void Start()
     {
-        targetViewList = new List<TargetView>();
+        targetViewList = new List<TargetMarkerView>();
     }
 
     public void SetTargetList()
     {
-        foreach (Transform child in spawner.gameObject.transform)
+        foreach (Transform child in _canvas.gameObject.transform)
         {
             if (child != null)
             {
-                targetViewList.Add(child.gameObject.GetComponent<TargetView>());
+                targetViewList.Add(child.gameObject.GetComponent<TargetMarkerView>());
             }
         }
     }
 
     private void Update()
     {
-        int spanwerChildrenCount = spawner.gameObject.transform.childCount;
+        int spanwerChildrenCount = _canvas.gameObject.transform.childCount;
         if (spanwerChildrenCount > 0)
         {
-            foreach (TargetView marker in targetViewList)
+            foreach (TargetMarkerView marker in targetViewList)
             {
                 float minX = marker.GetImage().GetPixelAdjustedRect().width / 2;
                 float maxX = Screen.width - minX;
@@ -40,9 +40,9 @@ public class MarkerUI : MonoBehaviour
                 float minY = marker.GetImage().GetPixelAdjustedRect().height / 2;
                 float maxY = Screen.height - minY;
 
-                Vector2 pos = Camera.main.WorldToScreenPoint(marker.GetTarget().position + marker.GetOffset());
+                Vector2 pos = Camera.main.WorldToScreenPoint(marker.GetTargetPosition() + marker.GetTargetOffset());
 
-                if (Vector3.Dot((marker.GetTarget().position - transform.position), transform.forward) < 0)
+                if (Vector3.Dot((marker.GetTargetPosition() - transform.position), transform.forward) < 0)
                 {
                     if (pos.x < Screen.width / 2)
                     {

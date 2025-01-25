@@ -3,28 +3,33 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class TargetModel
 {
     private TargetController _targetController;
 
     private TargetTypes _targetType;
+    private GameObject _targetObject;
     private Sprite _img;
-    private Transform _target;
+    private Vector3 _position;
+    private Vector3 _rotation;
     private Vector3 _offset;
 
     public TargetModel(
         TargetTypes targetType,
-        Sprite img, 
-        Transform target,
+        GameObject targetObject,
+        Sprite img,
+        Vector3 position,
+        Vector3 rotation,
         Vector3 offset)
     {
         _targetType = targetType;
+        _targetObject = targetObject;
         _img = img;
-        _target = target;
+        _position = position;
+        _rotation = rotation;
         _offset = offset;
-
-        Debug.Log(target.position);
     }
     public void SetTargetController(TargetController targetController)
     {
@@ -35,11 +40,19 @@ public class TargetModel
     {
         return _img;
     }
-    public Transform GetTarget()
+    public GameObject GetTargetObject()
     {
-        return _target;
+        return _targetObject;
     }
-    public Vector3 GetOffset()
+    public Vector3 GetTargetPosition()
+    {
+        return _position;
+    }
+    public Vector3 GetTargetRotation()
+    {
+        return _rotation;
+    }
+    public Vector3 GetTargetOffset()
     {
         return _offset;
     }
