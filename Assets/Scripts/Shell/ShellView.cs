@@ -43,18 +43,32 @@ public class ShellView : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius, GetLayerMask());
         for (int i = 0; i < colliders.Length; i++)
         {
-            Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody>();
-            if (!targetRigidbody)
-                continue;
-            targetRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
 
-            TankView targetHealth = targetRigidbody.GetComponent<TankView>();
+            TankView tankView = colliders[i].GetComponent<TankView>();
+            if(tankView!=null)
+            {
+                Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody>();
+                if (!targetRigidbody)
+                    continue;
+                targetRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
 
-            if (!targetHealth)
-                continue;
+                float damage = CalculateDamage(targetRigidbody.position);
+                tankView.TakeDamage(damage);
+            }
 
-            float damage = CalculateDamage(targetRigidbody.position);
-            targetHealth.TakeDamage(damage);
+            TargetView targetView = colliders[i].GetComponent<TargetView>();
+            if (targetView != null)
+            {
+                Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody>();
+                if (!targetRigidbody)
+                    continue;
+                targetRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+                targetView.PlayTargetExplosion();
+
+            }
+
+
+
         }
 
         PlayExplosion();
