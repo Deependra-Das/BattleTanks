@@ -67,6 +67,19 @@ public class ShellView : MonoBehaviour
 
             }
 
+            EnemyView enemyView = colliders[i].GetComponent<EnemyView>();
+            if (enemyView != null)
+            {
+                Rigidbody enemyRigidbody = colliders[i].GetComponent<Rigidbody>();
+                if (!enemyRigidbody)
+                    continue;
+                enemyRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+
+                float damage = CalculateDamage(enemyRigidbody.position);
+                enemyView.TakeDamage(damage);
+
+            }
+
 
 
         }

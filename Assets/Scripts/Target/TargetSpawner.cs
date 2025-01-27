@@ -35,7 +35,7 @@ public class TargetSpawner : MonoBehaviour
     [SerializeField]
     private List<TargetMarkers> _targetMarkerList;
 
-    public void CreateTargets(TargetTypes targetType)
+    public void CreateTargets()
     {
         for (int i = 0; i < _targetMarkerList.Count; i++)
         {
