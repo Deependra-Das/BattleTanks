@@ -42,10 +42,20 @@ public class EnemyView : MonoBehaviour
     private string _fireButton;
 
     private Transform[] _waypoints;
-    private int currentWaypointIndex;
-    public float waitTimeAtWaypoint = 1f;
-    private bool movingForward = true;
-    private bool isPatrolling = false;
+    private Transform _playerTransform;
+    private float _waitTimeAtWaypoint;
+    private float _shootingCooldown;
+    private float _shootingRange;
+    private float _lastShootTime = 0f;
+
+    private int _currentWaypointIndex;
+    private bool _movingForward = true;
+    private bool _isPatrolling = false;
+    private bool _playerInRange = false;
+    private bool _playerInShootingRange = false;
+    private float _currentLaunchForce=0f;
+
+    private Coroutine patrolCoroutine;
 
     [SerializeField]
     private ShellSpawner _shellSpawner;
@@ -58,20 +68,109 @@ public class EnemyView : MonoBehaviour
 
     void Update()
     {
-        if (!isPatrolling && _waypoints.Length >= 2)
+        if (_playerInRange)
         {
-            Debug.Log(_waypoints.Length);
-            StartCoroutine(Patrol());
-            isPatrolling = true;
+            DetectPlayer();
+            if (_playerInShootingRange)
+            {
+                RotateTowardsPlayer();
+                ShootAtPlayer();
+            }
+            else
+            {
+                //MoveTowardsPlayer();
+            }
+        }
+        else
+        {
+            if (!_isPatrolling)
+            {
+                _isPatrolling = true; 
+                patrolCoroutine = StartCoroutine(PatrolRoutine());
+            }
         }
     }
 
-    private IEnumerator Patrol()
+    private void DetectPlayer()
     {
-        while (true) 
+        float distanceToPlayer = Vector3.Distance(transform.position, _playerTransform.position);
+        if (distanceToPlayer <= _shootingRange)
         {
+            _playerInShootingRange = true;
+        }
+        else
+        {
+            _playerInShootingRange = false;
+        }
+    }
 
-            Transform targetWaypoint = _waypoints[currentWaypointIndex];
+    private void MoveTowardsPlayer()
+    {
+        Vector3 direction = _playerTransform.position - transform.position;
+        transform.position += direction.normalized * _enemyController.GetMovementSpeed() * Time.deltaTime;
+    }
+
+    private void RotateTowardsPlayer()
+    {
+        Vector3 direction = (_playerTransform.position - transform.position).normalized;
+
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, _enemyController.GetRotationSpeed() * Time.deltaTime);
+    }
+
+    private void ShootAtPlayer()
+    {
+        if (Time.time - _lastShootTime >= _shootingCooldown)
+        {
+            FireShell();
+            _lastShootTime = Time.time;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        TankView tankView = other.gameObject.GetComponent<TankView>();
+
+        if (tankView != null)
+        {
+            _playerInRange = true;
+            _playerTransform= tankView.transform;
+            _playerInShootingRange = Vector3.Distance(transform.position, _playerTransform.position) <= _shootingRange;
+
+            if (patrolCoroutine != null)
+            {
+                StopCoroutine(patrolCoroutine);
+                patrolCoroutine = null;
+            }
+
+            _isPatrolling = false;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        TankView tankView = other.gameObject.GetComponent<TankView>();
+
+        if (tankView != null)
+        {
+            _playerInRange = false;
+            _playerInShootingRange = false;
+
+            if (!_isPatrolling)
+            {
+                _isPatrolling = true;
+                patrolCoroutine = StartCoroutine(PatrolRoutine());
+            }
+        }
+    }
+    private IEnumerator PatrolRoutine()
+    {
+        while (_isPatrolling)
+        {
+            if (_waypoints.Length == 0) yield break;
+
+            Transform targetWaypoint = _waypoints[_currentWaypointIndex];
+            ;
 
             while (Vector3.Distance(transform.position, targetWaypoint.position) > 0.1f)
             {
@@ -82,25 +181,25 @@ public class EnemyView : MonoBehaviour
 
                 transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.position, _enemyController.GetMovementSpeed() * Time.deltaTime);
 
-                yield return null; 
+                yield return null;
             }
 
-            yield return new WaitForSeconds(waitTimeAtWaypoint);
+            yield return new WaitForSeconds(_waitTimeAtWaypoint);
 
-          
-            if (movingForward)
+
+            if (_movingForward)
             {
-                if (currentWaypointIndex < _waypoints.Length-1)
-                    currentWaypointIndex++;
+                if (_currentWaypointIndex < _waypoints.Length - 1)
+                    _currentWaypointIndex++;
                 else
-                    movingForward = false; 
+                    _movingForward = false;
             }
             else
             {
-                if (currentWaypointIndex > 0)
-                    currentWaypointIndex--;
+                if (_currentWaypointIndex > 0)
+                    _currentWaypointIndex--;
                 else
-                    movingForward = true; 
+                    _movingForward = true;
             }
         }
     }
@@ -148,57 +247,17 @@ public class EnemyView : MonoBehaviour
     {
         _enemyController.TakeDamage(damage);
     }
-    private void EnemyShooting()
-    {
-        ResetUI();
 
-        float currentLaunchForce = _enemyController.GetCurrentLaunchForce();
-        float maxLaunchForce = _enemyController.GetMaxLaunchForce();
-        float minLaunchForce = _enemyController.GetMinLaunchForce();
-        float chargeSpeed = _enemyController.GetChargeSpeed();
-
-        if (currentLaunchForce >= maxLaunchForce && !_enemyController.HasFired())
-        {
-            currentLaunchForce = maxLaunchForce;
-            _enemyController.SetCurrentLaunchForce(currentLaunchForce);
-            FireShell();
-        }
-
-        else if (Input.GetButtonDown(_fireButton))
-        {
-            _enemyController.SetFired(false);
-            currentLaunchForce = minLaunchForce;
-        }
-
-        else if (Input.GetButton(_fireButton) && !_enemyController.HasFired())
-        {
-            currentLaunchForce += chargeSpeed * Time.deltaTime;
-            _enemyController.SetCurrentLaunchForce(currentLaunchForce);
-            _aimSlider.value = currentLaunchForce;
-        }
-
-        else if (Input.GetButtonUp(_fireButton) && !_enemyController.HasFired())
-        {
-
-            FireShell();
-        }
-
-    }
     private void FireShell()
     {
-        _enemyController.SetFired(true);
+        _currentLaunchForce = _enemyController.GetMaxLaunchForce();
 
-        Vector3 velocity = _enemyController.GetCurrentLaunchForce() * _shellSpawner.transform.forward;
+        Vector3 velocity = _currentLaunchForce * _shellSpawner.transform.forward;
 
         _shellSpawner.SpawnShell(ShellTypes.Normal, velocity, _shellSpawner.transform);
 
-        _enemyController.SetCurrentLaunchForce(_enemyController.GetMinLaunchForce());
     }
 
-    public void ResetUI()
-    {
-        _aimSlider.value = _enemyController.GetMinLaunchForce();
-    }
     public void SetCameraPosition(Transform spawnTransform)
     {
         GameObject cam = GameObject.Find("Main Camera");
@@ -211,5 +270,16 @@ public class EnemyView : MonoBehaviour
     {
         _waypoints = waypoints;
     }
-
+    public void SetWaitTimeAtWaypoint(float waitTimeAtWaypoint)
+    {
+        _waitTimeAtWaypoint=waitTimeAtWaypoint;
+    }
+    public void SetShootingCooldown(float shootingCooldown)
+    {
+        _shootingCooldown=shootingCooldown;
+    }
+    public void SetShootingRange(float shootingRange)
+    {
+        _shootingRange=shootingRange;
+    }
 }

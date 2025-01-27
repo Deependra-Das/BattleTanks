@@ -13,6 +13,9 @@ public class ShellView : MonoBehaviour
     private LayerMask _tankMask;
 
     [SerializeField]
+    private LayerMask _enemyMask;
+
+    [SerializeField]
     private Rigidbody _shellRB;
 
     [SerializeField]
@@ -54,6 +57,7 @@ public class ShellView : MonoBehaviour
 
                 float damage = CalculateDamage(targetRigidbody.position);
                 tankView.TakeDamage(damage);
+
             }
 
             TargetView targetView = colliders[i].GetComponent<TargetView>();
@@ -70,7 +74,10 @@ public class ShellView : MonoBehaviour
             EnemyView enemyView = colliders[i].GetComponent<EnemyView>();
             if (enemyView != null)
             {
+                if (colliders[i] is SphereCollider)
+                    continue;
                 Rigidbody enemyRigidbody = colliders[i].GetComponent<Rigidbody>();
+      
                 if (!enemyRigidbody)
                     continue;
                 enemyRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
@@ -80,7 +87,7 @@ public class ShellView : MonoBehaviour
 
             }
 
-
+            
 
         }
 

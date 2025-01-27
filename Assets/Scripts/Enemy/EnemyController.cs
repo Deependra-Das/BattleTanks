@@ -17,21 +17,7 @@ public class EnemyController
         _enemyView = GameObject.Instantiate<EnemyView>(enemyView, _enemyModel.GetSpawnPosition(), Quaternion.Euler(_enemyModel.GetSpawnRotation()));
         _enemyRB = _enemyView.GetRigidBody();
         _enemyView.SetEnemyController(this);
-        _enemyView.ChangeColor(_enemyModel.GetEnemyMaterialColor());
-        _enemyView.SetPatrolWaypoints(_enemyModel.GetPatrolPoints());
         ResetData();
-    }
-
-    public void Move(float movement, float movementSpeed)
-    {
-        _enemyRB.velocity = _enemyView.transform.forward * movement * movementSpeed;
-    }
-
-    public void Rotate(float rotation, float rotationSpeed)
-    {
-        Vector3 vector = new Vector3(0f, rotation * rotationSpeed, 0f);
-        Quaternion deltaRotation = Quaternion.Euler(vector * Time.deltaTime);
-        _enemyRB.MoveRotation(_enemyRB.rotation * deltaRotation);
     }
 
     public float GetMovementSpeed()
@@ -63,10 +49,6 @@ public class EnemyController
     {
         return _enemyModel.GetMaxChargeTime();
     }
-    public float GetCurrentLaunchForce()
-    {
-        return _enemyModel.GetCurrentLaunchForce();
-    }
     public float GetChargeSpeed()
     {
         return _enemyModel.GetChargeSpeed();
@@ -89,10 +71,6 @@ public class EnemyController
     {
         _enemyView.SetHealthUI();
     }
-    public void SetCurrentLaunchForce(float forceValue)
-    {
-        _enemyModel.SetCurrentLaunchForce(forceValue);
-    }
     public void SetFired(bool fireValue)
     {
         _enemyModel.SetFired(fireValue);
@@ -105,7 +83,11 @@ public class EnemyController
     public void ResetData()
     {
         _enemyModel.ResetData();
-        _enemyView.ResetUI();
+        _enemyView.ChangeColor(_enemyModel.GetEnemyMaterialColor());
+        _enemyView.SetPatrolWaypoints(_enemyModel.GetPatrolPoints());
+        _enemyView.SetWaitTimeAtWaypoint(_enemyModel.GetWaitTimeAtWaypoint());
+        _enemyView.SetShootingCooldown(_enemyModel.GetShootingCooldown());
+        _enemyView.SetShootingRange(_enemyModel.GetShootingRange());
     }
 
 }

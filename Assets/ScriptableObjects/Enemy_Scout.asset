@@ -18,5 +18,8 @@ MonoBehaviour:
   enemyMatColor: {fileID: 2100000, guid: 424be3af6ad117140887d3e652a89d24, type: 2}
   initialHealth: 100
   minLaunchForce: 10
-  maxLaunchForce: 20
+  maxLaunchForce: 30
   maxChargeTime: 20
+  waitTimeAtWaypoint: 2
+  shootingCooldown: 3
+  shootingRange: 10

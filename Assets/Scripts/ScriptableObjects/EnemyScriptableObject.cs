@@ -13,4 +13,7 @@ public class EnemyScriptableObject : ScriptableObject
     public float minLaunchForce;
     public float maxLaunchForce;
     public float maxChargeTime;
+    public float waitTimeAtWaypoint;
+    public float shootingCooldown;
+    public float shootingRange;
 }

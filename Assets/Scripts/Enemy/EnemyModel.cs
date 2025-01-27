@@ -19,7 +19,6 @@ public class EnemyModel
     public float _maxLaunchForce;
     public float _maxChargeTime;
 
-    private float _currentLaunchForce;
     private float _chargeSpeed;
     private bool _fired;
 
@@ -27,10 +26,15 @@ public class EnemyModel
     private Vector3 _spawnRotation;
     private Transform[] _patrolpoints;
 
+    private float _waitTimeAtWaypoint;
+    private float _shootingCooldown;
+    private float _shootingRange;
+
     public EnemyModel(EnemyScriptableObject enemyScriptableObject, 
         Vector3 spawnPosition, 
         Vector3 spawnRotation,
-        Transform[] patrolpoints)
+        Transform[] patrolpoints
+        )
     {
         _movementSpeed = enemyScriptableObject.movementSpeed;
         _rotationSpeed = enemyScriptableObject.rotationSpeed;
@@ -43,6 +47,9 @@ public class EnemyModel
         _spawnPosition= spawnPosition;
         _spawnRotation= spawnRotation;
         _patrolpoints = patrolpoints;
+        _waitTimeAtWaypoint = enemyScriptableObject.waitTimeAtWaypoint;
+        _shootingCooldown = enemyScriptableObject.shootingCooldown;
+        _shootingRange = enemyScriptableObject.shootingRange;
     }
 
     public void SetEnemyController(EnemyController enemyController)
@@ -53,7 +60,6 @@ public class EnemyModel
     public void ResetData()
     {
         _currentHealth = _initialHealth;
-        _currentLaunchForce = _minLaunchForce;
         _chargeSpeed = (_maxLaunchForce - _minLaunchForce) / _maxChargeTime;
         _dead = false;
         _enemyController.SetHealthUI();
@@ -100,10 +106,6 @@ public class EnemyModel
     {
         return _maxChargeTime;
     }
-    public float GetCurrentLaunchForce()
-    {
-        return _currentLaunchForce;
-    }
     public float GetChargeSpeed()
     {
         return _chargeSpeed;
@@ -115,6 +117,18 @@ public class EnemyModel
     public Vector3 GetSpawnRotation()
     {
         return _spawnRotation;
+    }
+    public float GetWaitTimeAtWaypoint()
+    {
+        return _waitTimeAtWaypoint;
+    }
+    public float GetShootingCooldown()
+    {
+        return _shootingCooldown;
+    }
+    public float GetShootingRange()
+    {
+        return _shootingRange;
     }
 
     public bool HasFired()
@@ -130,10 +144,7 @@ public class EnemyModel
     {
         _dead = true;
     }
-    public void SetCurrentLaunchForce(float forceValue)
-    {
-        _currentLaunchForce = forceValue;
-    }
+
     public void SetFired(bool fireValue)
     {
         _fired = fireValue;
