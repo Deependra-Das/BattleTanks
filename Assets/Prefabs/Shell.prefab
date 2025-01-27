@@ -216,7 +216,7 @@ MonoBehaviour:
   _shellMesh: {fileID: 6933573963670924969}
   _tankMask:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 1792
   _shellRB: {fileID: 6933573963673220810}
   _explosionParticles: {fileID: 6933573964479819218}
 --- !u!1001 &6933573964494622916

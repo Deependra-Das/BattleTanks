@@ -10,6 +10,10 @@ public class TankSpawner : MonoBehaviour
     [SerializeField]
     private TargetSpawner _targetSpawner;
 
+    [SerializeField]
+    private EnemySpawner _enemySpawner;
+
+
     [System.Serializable]
     public class Tank
     {
@@ -56,7 +60,8 @@ public class TankSpawner : MonoBehaviour
 
             TankController tankController = new TankController(tankModel, _tankView, this.gameObject.transform);
 
-            _targetSpawner.CreateTargets(TargetTypes.OilStorage);
+            _targetSpawner.CreateTargets();
+            _enemySpawner.CreateEnemy();
         }
         else
         {
