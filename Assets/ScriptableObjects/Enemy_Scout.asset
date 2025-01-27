@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Enemy_Scout
   m_EditorClassIdentifier: 
   enemyType: 1
-  movementSpeed: 30
-  rotationSpeed: 30
+  movementSpeed: 10
+  rotationSpeed: 10
   enemyMatColor: {fileID: 2100000, guid: 424be3af6ad117140887d3e652a89d24, type: 2}
   initialHealth: 100
   minLaunchForce: 10

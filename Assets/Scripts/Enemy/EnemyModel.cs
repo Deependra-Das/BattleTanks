@@ -25,10 +25,12 @@ public class EnemyModel
 
     private Vector3 _spawnPosition;
     private Vector3 _spawnRotation;
+    private Transform[] _patrolpoints;
 
     public EnemyModel(EnemyScriptableObject enemyScriptableObject, 
         Vector3 spawnPosition, 
-        Vector3 spawnRotation)
+        Vector3 spawnRotation,
+        Transform[] patrolpoints)
     {
         _movementSpeed = enemyScriptableObject.movementSpeed;
         _rotationSpeed = enemyScriptableObject.rotationSpeed;
@@ -40,6 +42,7 @@ public class EnemyModel
         _maxChargeTime = enemyScriptableObject.maxChargeTime;
         _spawnPosition= spawnPosition;
         _spawnRotation= spawnRotation;
+        _patrolpoints = patrolpoints;
     }
 
     public void SetEnemyController(EnemyController enemyController)
@@ -134,5 +137,10 @@ public class EnemyModel
     public void SetFired(bool fireValue)
     {
         _fired = fireValue;
+    }
+
+    public Transform[] GetPatrolPoints()
+    {
+        return _patrolpoints;
     }
 }

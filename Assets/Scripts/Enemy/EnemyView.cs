@@ -41,6 +41,12 @@ public class EnemyView : MonoBehaviour
 
     private string _fireButton;
 
+    private Transform[] _waypoints;
+    private int currentWaypointIndex;
+    public float waitTimeAtWaypoint = 1f;
+    private bool movingForward = true;
+    private bool isPatrolling = false;
+
     [SerializeField]
     private ShellSpawner _shellSpawner;
 
@@ -52,6 +58,51 @@ public class EnemyView : MonoBehaviour
 
     void Update()
     {
+        if (!isPatrolling && _waypoints.Length >= 2)
+        {
+            Debug.Log(_waypoints.Length);
+            StartCoroutine(Patrol());
+            isPatrolling = true;
+        }
+    }
+
+    private IEnumerator Patrol()
+    {
+        while (true) 
+        {
+
+            Transform targetWaypoint = _waypoints[currentWaypointIndex];
+
+            while (Vector3.Distance(transform.position, targetWaypoint.position) > 0.1f)
+            {
+                Vector3 direction = (targetWaypoint.position - transform.position).normalized;
+
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _enemyController.GetRotationSpeed() * Time.deltaTime);
+
+                transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.position, _enemyController.GetMovementSpeed() * Time.deltaTime);
+
+                yield return null; 
+            }
+
+            yield return new WaitForSeconds(waitTimeAtWaypoint);
+
+          
+            if (movingForward)
+            {
+                if (currentWaypointIndex < _waypoints.Length-1)
+                    currentWaypointIndex++;
+                else
+                    movingForward = false; 
+            }
+            else
+            {
+                if (currentWaypointIndex > 0)
+                    currentWaypointIndex--;
+                else
+                    movingForward = true; 
+            }
+        }
     }
 
     public void SetEnemyController(EnemyController enemyController)
@@ -156,4 +207,9 @@ public class EnemyView : MonoBehaviour
         cam.transform.position = spawnTransform.position;
         cam.transform.localPosition = new Vector3(0f, 3f, -5f);
     }
+    public void SetPatrolWaypoints(Transform[] waypoints)
+    {
+        _waypoints = waypoints;
+    }
+
 }

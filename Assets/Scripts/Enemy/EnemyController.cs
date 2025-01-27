@@ -18,7 +18,7 @@ public class EnemyController
         _enemyRB = _enemyView.GetRigidBody();
         _enemyView.SetEnemyController(this);
         _enemyView.ChangeColor(_enemyModel.GetEnemyMaterialColor());
-
+        _enemyView.SetPatrolWaypoints(_enemyModel.GetPatrolPoints());
         ResetData();
     }
 
@@ -107,4 +107,5 @@ public class EnemyController
         _enemyModel.ResetData();
         _enemyView.ResetUI();
     }
+
 }

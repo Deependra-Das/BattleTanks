@@ -17,6 +17,7 @@ public class EnemySpawner : MonoBehaviour
         public EnemyTypes enemyType;
         public Vector3 spawnPosition;
         public Vector3 spawnRotation;
+        public Transform[] patrolPoints;
     }
 
     [SerializeField]
@@ -46,8 +47,8 @@ public class EnemySpawner : MonoBehaviour
                 EnemyModel enemyModel = new EnemyModel(
                     enemyConfig,
                     enemy.spawnPosition,
-                    enemy.spawnRotation
-            
+                    enemy.spawnRotation,
+                    enemy.patrolPoints
                 );
 
                 EnemyController enemyController = new EnemyController(enemyModel, _enemyView);

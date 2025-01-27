@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Enemy_Heavy_Assault
   m_EditorClassIdentifier: 
   enemyType: 0
-  movementSpeed: 30
-  rotationSpeed: 30
+  movementSpeed: 10
+  rotationSpeed: 10
   enemyMatColor: {fileID: 2100000, guid: 65b34bd0b696fd64c809daa8ff1aac63, type: 2}
   initialHealth: 100
   minLaunchForce: 10

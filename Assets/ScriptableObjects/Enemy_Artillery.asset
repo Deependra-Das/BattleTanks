@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Enemy_Artillery
   m_EditorClassIdentifier: 
   enemyType: 2
-  movementSpeed: 30
-  rotationSpeed: 30
+  movementSpeed: 10
+  rotationSpeed: 10
   enemyMatColor: {fileID: 2100000, guid: c4c5f95d06932564c8672b4bafeb1b28, type: 2}
   initialHealth: 100
   minLaunchForce: 10
