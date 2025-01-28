@@ -13,9 +13,6 @@ public class TargetSpawner : MonoBehaviour
     private TargetMarkerView _targetMarkerView;
 
     [SerializeField]
-    private MarkerUI _markerUIObj;
-
-    [SerializeField]
     private Canvas _canvasObj;
 
     [SerializeField]
@@ -71,7 +68,7 @@ public class TargetSpawner : MonoBehaviour
             {
                 Debug.Log("Tank data not found");
             }
-            _markerUIObj.SetTargetList();
+    
         }
 
     }
