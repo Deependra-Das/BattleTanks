@@ -226,7 +226,6 @@ GameObject:
   - component: {fileID: 3667947328624454110}
   - component: {fileID: 8681960746159701611}
   - component: {fileID: 4576281981597444096}
-  - component: {fileID: 6354541126625624901}
   m_Layer: 10
   m_Name: EnemyTank
   m_TagString: Untagged
@@ -312,9 +311,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7f8185331fae7f4d82197f4490fa3b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumber: 1
   _enemyRB: {fileID: 3667947328624454110}
-  _enemyMeshChildren: []
+  _enemyMeshChildren:
+  - {fileID: 7054662901095715287}
+  - {fileID: 4474761210715591841}
+  - {fileID: 4966657058494740976}
+  - {fileID: 3054340863947622446}
   _healthSlider: {fileID: 1962268649127961674}
   _aimSlider: {fileID: 4956927128084527997}
   _fillImage: {fileID: 7262369974866664232}
@@ -324,27 +326,6 @@ MonoBehaviour:
   _explosionParticles: {fileID: 19874418, guid: dc858bfd109e5054dac4b3f7bd8f5545,
     type: 3}
   _shellSpawner: {fileID: 5080582063972256002}
---- !u!135 &6354541126625624901
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1249814091656493378}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 10
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1868202028781548125
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,10 +525,10 @@ MonoBehaviour:
   _shellList:
   - shellType: 0
     shellMatColor: {fileID: 2100000, guid: db9ceca9e86a2724aaa5c3df2991dba7, type: 2}
-    maxDamage: 0
-    explosionForce: 0
-    maxLifeTime: 0
-    explosionRadius: 0
+    maxDamage: 100
+    explosionForce: 10
+    maxLifeTime: 0.75
+    explosionRadius: 5
   - shellType: 1
     shellMatColor: {fileID: 0}
     maxDamage: 0

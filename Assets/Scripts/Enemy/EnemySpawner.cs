@@ -9,6 +9,9 @@ public class EnemySpawner : MonoBehaviour
     private EnemyView _enemyView;
 
     [SerializeField]
+    private EnemyRadarView _enemyRadarView;
+
+    [SerializeField]
     private EnemyScriptableObject[] _enemyConfigurations;
 
     [System.Serializable]
@@ -51,7 +54,7 @@ public class EnemySpawner : MonoBehaviour
                     enemy.patrolPoints
                 );
 
-                EnemyController enemyController = new EnemyController(enemyModel, _enemyView);
+                EnemyController enemyController = new EnemyController(enemyModel, _enemyView, _enemyRadarView);
 
             }
             else

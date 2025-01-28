@@ -17,9 +17,9 @@ MonoBehaviour:
   rotationSpeed: 10
   enemyMatColor: {fileID: 2100000, guid: 424be3af6ad117140887d3e652a89d24, type: 2}
   initialHealth: 100
-  minLaunchForce: 10
-  maxLaunchForce: 30
-  maxChargeTime: 20
+  minLaunchForce: 5
+  maxLaunchForce: 15
+  maxChargeTime: 0.75
   waitTimeAtWaypoint: 2
-  shootingCooldown: 3
+  shootingCooldown: 2
   shootingRange: 10

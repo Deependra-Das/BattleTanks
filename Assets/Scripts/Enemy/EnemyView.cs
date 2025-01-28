@@ -2,15 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public class EnemyView : MonoBehaviour
 {
     private EnemyController _enemyController;
-
-    public int playerNumber = 1;
-
-    private float _movement;
-    private float _rotation;
 
     [SerializeField]
     private Rigidbody _enemyRB;
@@ -53,18 +49,24 @@ public class EnemyView : MonoBehaviour
     private bool _isPatrolling = false;
     private bool _playerInRange = false;
     private bool _playerInShootingRange = false;
-    private float _currentLaunchForce=0f;
+    private float _currentLaunchForce = 0f;
 
     private Coroutine patrolCoroutine;
 
     [SerializeField]
     private ShellSpawner _shellSpawner;
-
-    private void Start()
+    private void Awake()
     {
-        _fireButton = "Fire" + playerNumber;
+        _explosionParticles = Instantiate(_explosionPrefab).GetComponent<ParticleSystem>();
+        _explosionParticles.gameObject.SetActive(false);
     }
+
     public EnemyView() { }
+
+    public void SetEnemyController(EnemyController enemyController)
+    {
+        _enemyController = enemyController;
+    }
 
     void Update()
     {
@@ -78,14 +80,14 @@ public class EnemyView : MonoBehaviour
             }
             else
             {
-                //MoveTowardsPlayer();
+                MoveTowardsPlayer();
             }
         }
         else
         {
             if (!_isPatrolling)
             {
-                _isPatrolling = true; 
+                _isPatrolling = true;
                 patrolCoroutine = StartCoroutine(PatrolRoutine());
             }
         }
@@ -93,29 +95,42 @@ public class EnemyView : MonoBehaviour
 
     private void DetectPlayer()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, _playerTransform.position);
-        if (distanceToPlayer <= _shootingRange)
+        if(_playerTransform!=null)
         {
-            _playerInShootingRange = true;
+            float distanceToPlayer = Vector3.Distance(transform.position, _playerTransform.position);
+            if (distanceToPlayer <= _shootingRange)
+            {
+                _playerInShootingRange = true;
+            }
+            else
+            {
+                _playerInShootingRange = false;
+            }
         }
-        else
-        {
-            _playerInShootingRange = false;
-        }
+      
     }
 
     private void MoveTowardsPlayer()
     {
-        Vector3 direction = _playerTransform.position - transform.position;
-        transform.position += direction.normalized * _enemyController.GetMovementSpeed() * Time.deltaTime;
+        if (_playerTransform != null)
+        {
+            Vector3 direction = _playerTransform.position - transform.position;
+            transform.position += direction.normalized * _enemyController.GetMovementSpeed() * Time.deltaTime;
+        }
     }
 
     private void RotateTowardsPlayer()
     {
-        Vector3 direction = (_playerTransform.position - transform.position).normalized;
+        if (_playerTransform != null)
+        {
+            //Vector3 direction = (_playerTransform.position - transform.position).normalized;
 
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, _enemyController.GetRotationSpeed() * Time.deltaTime);
+            //Quaternion lookRotation = Quaternion.LookRotation(direction);
+
+            //transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, _enemyController.GetRotationSpeed() * Time.deltaTime);
+            //Debug.Log(direction.ToString()+" "+lookRotation.ToString() +" "+ transform.rotation.ToString());
+            transform.LookAt(_playerTransform);
+        }
     }
 
     private void ShootAtPlayer()
@@ -127,42 +142,6 @@ public class EnemyView : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        TankView tankView = other.gameObject.GetComponent<TankView>();
-
-        if (tankView != null)
-        {
-            _playerInRange = true;
-            _playerTransform= tankView.transform;
-            _playerInShootingRange = Vector3.Distance(transform.position, _playerTransform.position) <= _shootingRange;
-
-            if (patrolCoroutine != null)
-            {
-                StopCoroutine(patrolCoroutine);
-                patrolCoroutine = null;
-            }
-
-            _isPatrolling = false;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        TankView tankView = other.gameObject.GetComponent<TankView>();
-
-        if (tankView != null)
-        {
-            _playerInRange = false;
-            _playerInShootingRange = false;
-
-            if (!_isPatrolling)
-            {
-                _isPatrolling = true;
-                patrolCoroutine = StartCoroutine(PatrolRoutine());
-            }
-        }
-    }
     private IEnumerator PatrolRoutine()
     {
         while (_isPatrolling)
@@ -204,11 +183,6 @@ public class EnemyView : MonoBehaviour
         }
     }
 
-    public void SetEnemyController(EnemyController enemyController)
-    {
-        _enemyController = enemyController;
-    }
-
     public Rigidbody GetRigidBody()
     {
         return _enemyRB;
@@ -220,11 +194,6 @@ public class EnemyView : MonoBehaviour
         {
             _enemyMeshChildren[i].material = matColor;
         }
-    }
-    private void Awake()
-    {
-        _explosionParticles = Instantiate(_explosionPrefab).GetComponent<ParticleSystem>();
-        _explosionParticles.gameObject.SetActive(false);
     }
 
     public void SetHealthUI()
@@ -240,7 +209,8 @@ public class EnemyView : MonoBehaviour
         _explosionParticles.gameObject.SetActive(true);
 
         _explosionParticles.Play();
-        gameObject.SetActive(false);
+        Destroy(_explosionParticles.gameObject, _explosionParticles.main.duration);
+        Destroy(this.gameObject);
     }
 
     public void TakeDamage(float damage)
@@ -254,7 +224,7 @@ public class EnemyView : MonoBehaviour
 
         Vector3 velocity = _currentLaunchForce * _shellSpawner.transform.forward;
 
-        _shellSpawner.SpawnShell(ShellTypes.Normal, velocity, _shellSpawner.transform);
+        _shellSpawner.SpawnShell(ShellTypes.Normal, velocity, _shellSpawner.transform, ShellParentTypes.EnemyTank);
 
     }
 
@@ -266,20 +236,47 @@ public class EnemyView : MonoBehaviour
         cam.transform.position = spawnTransform.position;
         cam.transform.localPosition = new Vector3(0f, 3f, -5f);
     }
-    public void SetPatrolWaypoints(Transform[] waypoints)
+    public void SetPatrolWaypoints(Transform[] waypoints) => _waypoints = waypoints; 
+    public void SetWaitTimeAtWaypoint(float waitTimeAtWaypoint) => _waitTimeAtWaypoint = waitTimeAtWaypoint;
+    public void SetShootingCooldown(float shootingCooldown) => _shootingCooldown = shootingCooldown;
+    public void SetShootingRange(float shootingRange) => _shootingRange = shootingRange;
+    public float GetShootingRange()
     {
-        _waypoints = waypoints;
+        return _shootingRange;
     }
-    public void SetWaitTimeAtWaypoint(float waitTimeAtWaypoint)
+    
+    public void SetPlayerInRange(bool value) => _playerInRange = value;
+    public void SetPlayerTransform(Transform value) => _playerTransform = value;
+    public Transform GetPlayerTransform()
     {
-        _waitTimeAtWaypoint=waitTimeAtWaypoint;
+        return _playerTransform;
     }
-    public void SetShootingCooldown(float shootingCooldown)
+    public void SetPlayerInShootingRange(bool value) => _playerInShootingRange = value;
+    public bool GetPlayerInShootingRange()
     {
-        _shootingCooldown=shootingCooldown;
+        return _playerInShootingRange;
     }
-    public void SetShootingRange(float shootingRange)
+    public void PausePatrolling()
     {
-        _shootingRange=shootingRange;
+        if (patrolCoroutine != null)
+        {
+            StopCoroutine(patrolCoroutine);
+            patrolCoroutine = null;
+        }
+
+        _isPatrolling = false;
+    }
+    public void ResumePatrolling()
+    {
+        if (!_isPatrolling)
+        {
+            _isPatrolling = true;
+            patrolCoroutine = StartCoroutine(PatrolRoutine());
+        }
+    }
+
+    public Transform GetEnemyTransform()
+    {
+        return gameObject.transform;
     }
 }

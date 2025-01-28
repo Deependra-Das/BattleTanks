@@ -10,11 +10,21 @@ public class TargetView : MonoBehaviour
     private TargetController _targetController;
 
     [SerializeField]
+    private GameObject _explosionPrefab;
+
+    [SerializeField]
     private ParticleSystem _explosionParticles;
+
 
     public void SetTargetController(TargetController targetController)
     {
         _targetController = targetController;
+    }
+
+    public void InstantiateExplosion()
+    {
+        _explosionParticles = Instantiate(_explosionPrefab).GetComponent<ParticleSystem>();
+        _explosionParticles.gameObject.SetActive(false);
     }
 
     public void PlayTargetExplosion()
@@ -23,8 +33,12 @@ public class TargetView : MonoBehaviour
         _explosionParticles.gameObject.SetActive(true);
 
         _explosionParticles.Play();
-        gameObject.SetActive(false);
+        Destroy(_explosionParticles.gameObject, _explosionParticles.main.duration);
+
         _targetController.DisableMarker();
+
+        Destroy(this.gameObject);
+      
     }
     public void SetAreaParent(Transform area)
     {

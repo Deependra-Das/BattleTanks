@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ShellView : MonoBehaviour
 {
@@ -35,7 +36,14 @@ public class ShellView : MonoBehaviour
     }
     public LayerMask GetLayerMask()
     {
-        return _tankMask;
+        LayerMask mask = 0;
+
+        if (_shellController.GetShellParentType() == ShellParentTypes.PlayerTank)
+            mask = _tankMask;
+        else if (_shellController.GetShellParentType() == ShellParentTypes.EnemyTank)
+            mask = _enemyMask;
+
+        return mask;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -46,54 +54,56 @@ public class ShellView : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius, GetLayerMask());
         for (int i = 0; i < colliders.Length; i++)
         {
+            Rigidbody rigidbody = colliders[i].GetComponent<Rigidbody>();
+            if (!rigidbody)
+                continue;
 
             TankView tankView = colliders[i].GetComponent<TankView>();
-            if(tankView!=null)
-            {
-                Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody>();
-                if (!targetRigidbody)
-                    continue;
-                targetRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
-
-                float damage = CalculateDamage(targetRigidbody.position);
-                tankView.TakeDamage(damage);
-
-            }
-
             TargetView targetView = colliders[i].GetComponent<TargetView>();
-            if (targetView != null)
-            {
-                Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody>();
-                if (!targetRigidbody)
-                    continue;
-                targetRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
-                targetView.PlayTargetExplosion();
+            EnemyView enemyView = colliders[i].GetComponent<EnemyView>();
 
+            if (tankView != null)
+            {
+                tankView.TakeDamage(ProcessShellCollisionForTank(rigidbody, explosionRadius, explosionForce));
             }
 
-            EnemyView enemyView = colliders[i].GetComponent<EnemyView>();
-            if (enemyView != null)
+            else if (targetView != null)
+            {
+                ProcessShellCollisionForTarget(rigidbody, explosionRadius, explosionForce);
+                targetView.PlayTargetExplosion();
+            }
+
+            else if (enemyView != null)
             {
                 if (colliders[i] is SphereCollider)
                     continue;
-                Rigidbody enemyRigidbody = colliders[i].GetComponent<Rigidbody>();
-      
-                if (!enemyRigidbody)
-                    continue;
-                enemyRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
 
-                float damage = CalculateDamage(enemyRigidbody.position);
-                enemyView.TakeDamage(damage);
+                enemyView.TakeDamage(ProcessShellCollisionForEnemy(rigidbody, explosionRadius, explosionForce));
 
             }
-
-            
 
         }
 
         PlayExplosion();
 
         Destroy(gameObject);
+    }
+
+    private float ProcessShellCollisionForTank(Rigidbody rigidbody, float explosionForce, float explosionRadius)
+    {
+        rigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+        float damage = CalculateDamage(rigidbody.position);
+        return damage;
+    }
+    private void ProcessShellCollisionForTarget(Rigidbody rigidbody, float explosionForce, float explosionRadius)
+    {
+        rigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+    }
+    private float ProcessShellCollisionForEnemy(Rigidbody rigidbody, float explosionForce, float explosionRadius)
+    {
+        rigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+        float damage = CalculateDamage(rigidbody.position);
+        return damage;
     }
 
     private void PlayExplosion()
@@ -107,10 +117,12 @@ public class ShellView : MonoBehaviour
     {
         float explosionRadius = _shellController.GetExplosionRadius();
         float maxDamage = _shellController.GetMaxDamage();
+
         Vector3 explosionToTarget = targetPosition - transform.position;
         float explosionDistance = explosionToTarget.magnitude;
         float relativeDistance = (explosionRadius - explosionDistance) / explosionRadius;
         float damage = relativeDistance * maxDamage;
+
         damage = Mathf.Max(0f, damage);
 
         return damage;

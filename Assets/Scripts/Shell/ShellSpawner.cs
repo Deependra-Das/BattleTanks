@@ -21,7 +21,7 @@ public class ShellSpawner : MonoBehaviour
     [SerializeField]
     private List<Shell> _shellList;
 
-    public void SpawnShell(ShellTypes shellType, Vector3 velocity, Transform originTransform)
+    public void SpawnShell(ShellTypes shellType, Vector3 velocity, Transform originTransform, ShellParentTypes shellParentType)
     {
         Shell shell = null;
         switch (shellType)
@@ -46,7 +46,8 @@ public class ShellSpawner : MonoBehaviour
                 shell.maxLifeTime,
                 shell.explosionRadius,
                 velocity,
-                originTransform
+                originTransform,
+                shellParentType
             );
 
             ShellController shellController = new ShellController(shellModel, _shellView);

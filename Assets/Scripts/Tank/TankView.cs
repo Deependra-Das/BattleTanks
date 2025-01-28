@@ -107,9 +107,13 @@ public class TankView : MonoBehaviour
     {
         _explosionParticles.transform.position = transform.position;
         _explosionParticles.gameObject.SetActive(true);
-
+       
         _explosionParticles.Play();
-        gameObject.SetActive(false);
+        Destroy(_explosionParticles.gameObject, _explosionParticles.main.duration);
+        GameObject cam = GameObject.Find("Main Camera");
+        cam.transform.SetParent(null);
+
+        Destroy(gameObject);
     }
 
     public void TakeDamage(float damage)
@@ -158,7 +162,7 @@ public class TankView : MonoBehaviour
        
         Vector3 velocity = _tankController.GetCurrentLaunchForce() * _shellSpawner.transform.forward;
 
-        _shellSpawner.SpawnShell(ShellTypes.Normal, velocity, _shellSpawner.transform);
+        _shellSpawner.SpawnShell(ShellTypes.Normal, velocity, _shellSpawner.transform, ShellParentTypes.PlayerTank);
 
         _tankController.SetCurrentLaunchForce(_tankController.GetMinLaunchForce());
     }

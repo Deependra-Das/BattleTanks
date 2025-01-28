@@ -1008,10 +1008,10 @@ MonoBehaviour:
   _shellList:
   - shellType: 0
     shellMatColor: {fileID: 2100000, guid: db9ceca9e86a2724aaa5c3df2991dba7, type: 2}
-    maxDamage: 0
-    explosionForce: 0
-    maxLifeTime: 0
-    explosionRadius: 0
+    maxDamage: 100
+    explosionForce: 10
+    maxLifeTime: 0.75
+    explosionRadius: 5
   - shellType: 1
     shellMatColor: {fileID: 0}
     maxDamage: 0
