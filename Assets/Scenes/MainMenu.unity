@@ -1271,21 +1271,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Use W & S keys to move forward & backward
-
-
-    Use A & D keys to rotate
-    your Tank''s POV to Aim
-
-
-    Use Left mouse button to Shoot Shells
-
-
-    Holding
-    Left Mouse Button charges the Shell to shoot it to longer distance
-
-
-'
+  m_text: "Mission : Destroy all the Target Buildings with Markers & surive the Enemy
+    Tanks. \n\nUse W & S keys to move forward & backward\n\nUse A & D keys to rotate
+    your Tank's POV to Aim\n\nUse Left mouse button to Shoot Shells\n\nHolding Left
+    Mouse Button charges the Shell to shoot it to longer distance\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4d2925d8a0c043240afeed1fe16993e4, type: 2}
   m_sharedMaterial: {fileID: -8805501029277246376, guid: 4d2925d8a0c043240afeed1fe16993e4,
