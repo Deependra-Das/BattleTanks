@@ -17,6 +17,7 @@ public class TargetController
         _targetView = GameObject.Instantiate<TargetView>(targetView, GetTargetPosition(), Quaternion.Euler(GetTargetRotation()));
         _targetView.SetTargetController(this);
         _targetView.SetAreaParent(area);
+        _targetView.InstantiateExplosion();
 
         _targetMarkerView = GameObject.Instantiate<TargetMarkerView>(targetMarkerView);
         _targetMarkerView.SetTargetController(this);

@@ -47,4 +47,8 @@ public class ShellController
     {
         return _shellModel.GetVelocity();
     }
+    public ShellParentTypes GetShellParentType()
+    {
+        return _shellModel.GetShellParentType();
+    }
 }

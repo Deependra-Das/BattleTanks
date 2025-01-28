@@ -15,6 +15,7 @@ public class ShellModel
     private float _explosionRadius;
     private Vector3 _velocity;
     private Transform _originTransform;
+    private ShellParentTypes _shellParentType;
 
     public ShellModel(ShellTypes shellType,
         Material shellMatColor, float maxDamage,
@@ -22,7 +23,8 @@ public class ShellModel
         float maxLifeTime,
         float explosionRadius,
         Vector3 velocity,
-        Transform originTransform
+        Transform originTransform,
+        ShellParentTypes shellParentType
         )
     {
         _shellType = shellType;
@@ -33,6 +35,7 @@ public class ShellModel
         _explosionRadius = explosionRadius;
         _velocity = velocity;
         _originTransform = originTransform;
+        _shellParentType= shellParentType;
     }
 
     public void SetShellController(ShellController shellController)
@@ -67,5 +70,9 @@ public class ShellModel
     public Vector3 GetVelocity()
     {
         return _velocity;
+    }
+    public ShellParentTypes GetShellParentType()
+    {
+        return _shellParentType;
     }
 }

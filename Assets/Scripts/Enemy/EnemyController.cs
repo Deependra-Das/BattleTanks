@@ -6,10 +6,11 @@ public class EnemyController
 {
     private EnemyModel _enemyModel;
     private EnemyView _enemyView;
+    private EnemyRadarView _enemyRadarView;
     private Rigidbody _enemyRB;
 
 
-    public EnemyController(EnemyModel enemyModel, EnemyView enemyView)
+    public EnemyController(EnemyModel enemyModel, EnemyView enemyView, EnemyRadarView enemyRadarView)
     {
         _enemyModel = enemyModel;
         _enemyModel.SetEnemyController(this);
@@ -18,6 +19,10 @@ public class EnemyController
         _enemyRB = _enemyView.GetRigidBody();
         _enemyView.SetEnemyController(this);
         ResetData();
+
+        _enemyRadarView = GameObject.Instantiate<EnemyRadarView>(enemyRadarView);
+        _enemyRadarView.SetRadarParent(_enemyView.GetEnemyTransform());
+        _enemyRadarView.SetEnemyController(this);
     }
 
     public float GetMovementSpeed()
@@ -90,4 +95,29 @@ public class EnemyController
         _enemyView.SetShootingRange(_enemyModel.GetShootingRange());
     }
 
+    public void SetPlayerInRange(bool value) => _enemyView.SetPlayerInRange(value);
+    public void SetPlayerTransform(Transform value) => _enemyView.SetPlayerTransform(value);
+    public Transform GetPlayerTransform()
+    {
+        return _enemyView.GetPlayerTransform();
+    }
+
+    public void SetPlayerInShootingRange(bool value) => _enemyView.SetPlayerInShootingRange(value);
+    public bool GetPlayerInShootingRange()
+    {
+        return _enemyView.GetPlayerInShootingRange();
+    }
+    public float GetShootingRange()
+    {
+        return _enemyView.GetShootingRange();
+    }
+
+    public void PausePatrolling()
+    {
+        _enemyView.PausePatrolling();
+    }
+    public void ResumePatrolling()
+    {
+        _enemyView.ResumePatrolling();
+    }
 }
