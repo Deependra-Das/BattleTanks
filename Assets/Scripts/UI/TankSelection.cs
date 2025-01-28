@@ -5,24 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class TankSelection : MonoBehaviour
 {
-    [SerializeField]
-    private TankSpawner _tankSpawner;
-
     public void GreenTankSelected()
     {
-       _tankSpawner.CreateTank(TankTypes.GreenTank);
+       GameService.Instance.StartGame(TankTypes.GreenTank);
         this.gameObject.SetActive(false);
     }
 
     public void BlueTankSelected()
     {
-        _tankSpawner.CreateTank(TankTypes.BlueTank);
+        GameService.Instance.StartGame(TankTypes.BlueTank);
         this.gameObject.SetActive(false);
     }
 
     public void RedTankSelected()
     {
-        _tankSpawner.CreateTank(TankTypes.RedTank);
+        GameService.Instance.StartGame(TankTypes.RedTank);
         this.gameObject.SetActive(false);
     }
     public void OnBackButtonPressed()
